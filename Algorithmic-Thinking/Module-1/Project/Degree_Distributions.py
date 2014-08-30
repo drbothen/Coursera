@@ -46,3 +46,15 @@ def make_complete_graph(num_nodes):
             xgraph[base_node] = xlist # Appending created list to the dict
             
         return xgraph # returning populated dict
+
+
+def compute_in_degress(digraph):
+    for node in digraph:
+        return 0 #dummy return. Using as a Place Holder
+        
+
+def in_degree_distribution(digraph):
+    return 0 #dummy return. Using as a Place Holder
+
+
+

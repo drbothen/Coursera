@@ -31,8 +31,9 @@ def make_complete_graph(num_nodes):
     #for all possible edges in the graph (No self loops are
     #allowed for this example
     xgraph = {}  #Create a Blank Dict
-    
-    if num_nodes - 1 <= 0: # If the number of nodes is 1 or less returns an empty dict because there are no edges to compute
+    if num_nodes - 1 < 0: # checks to see if the num_nodes is less then 0 (negative number) if it is return empty graph (dict). Could probably combine the If statments for negative nodes and 1 node together
+        return xgraph
+    if num_nodes - 1 == 0: # If the number of nodes is 1 or returns a one node dict because there are no edges to compute
         xgraph[0] = [] # creates a dict that represents a single node graph as per the requirement
         return xgraph # the empty Graph
     else:

@@ -33,6 +33,7 @@ def make_complete_graph(num_nodes):
     xgraph = {}  #Create a Blank Dict
     
     if num_nodes - 1 <= 0: # If the number of nodes is 1 or less returns an empty dict because there are no edges to compute
+        xgraph[0] = [] # creates a dict that represents a single node graph as per the requirement
         return xgraph # the empty Graph
     else:
         for base_node in range(num_nodes): # This portion starts the build phase. for each node it will compute the theretical maximum amount of edges

@@ -7,7 +7,7 @@ Script: Degree_Distrabution
 
 # below is the programming equivalent to the graphs used for module 1
 
-EX_GRAPH0 = { 0 : set([1,2])
+EX_GRAPH0 = { 0 : set([1,2]),
               1 : set([]),
               2 : set([])}
 

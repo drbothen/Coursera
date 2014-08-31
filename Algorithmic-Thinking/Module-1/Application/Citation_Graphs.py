@@ -5,6 +5,13 @@ Language: Python 2.x
 Script: Citation Graphing
 """
 
+# general imports
+import urllib2
+
+#end general imports
+
+CITATION_URL = "http://storage.googleapis.com/codeskulptor-alg/alg_phys-cite.txt" # URL for Data Set
+
 # below is the programming equivalent to the graphs used for module 1
 
 EX_GRAPH0 = { 0 : set([1,2]),
@@ -83,6 +90,35 @@ def in_degree_distribution(digraph):
         xgraph[degrees]+= 1 # every time the degree comes up during the the loop it increase the value by 1
 
     return xgraph # returns the final dict
+
+def load_graph(graph_url): # Function Provided By instructor 
+    """
+    Function that loads a graph given the URL
+    for a text representation of the graph
+    
+    Returns a dictionary that models a graph
+    """
+    graph_file = urllib2.urlopen(graph_url)
+    graph_text = graph_file.read()
+    graph_lines = graph_text.split('\n')
+    graph_lines = graph_lines[ : -1]
+    
+    print "Loaded graph with", len(graph_lines), "nodes"
+    
+    answer_graph = {}
+    for line in graph_lines:
+        neighbors = line.split(' ')
+        node = int(neighbors[0])
+        answer_graph[node] = set([])
+        for neighbor in neighbors[1 : -1]:
+            answer_graph[node].add(int(neighbor))
+
+    return answer_graph
+
+citation_graph = load_graph(CITATION_URL)
+
+print citation_graph
+
 
 
 

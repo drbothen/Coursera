@@ -5,26 +5,26 @@
 
 # below is the programming equivalent to the graphs used for module 1
 
-EX_GRAPH0 = { 0 : [1,2]}
+EX_GRAPH0 = { 0 : set([1,2])}
 
-EX_GRAPH1 = {0 : [1,4,5], 
-             1 : [2,6], 
-             2 : [3], 
-             3 : [0], 
-             4 : [1], 
-             5 : [2], 
-             6: []} 
+EX_GRAPH1 = {0 : set([1,4,5]), 
+             1 : set([2,6]), 
+             2 : set([3]), 
+             3 : set([0]), 
+             4 : set([1]), 
+             5 : set([2]), 
+             6: set([])} 
 
-EX_GRAPH2 = {0 : [1,4,5], 
-             1 : [2,6], 
-             2 : [3], 
-             3 : [0], 
-             4 : [1], 
-             5 : [2], 
-             6 : [],
-             7 : [3],
-             8 : [1, 2],
-             9 : [0, 4, 5, 6, 7, 3]} 
+EX_GRAPH2 = {0 : set([1,4,5]), 
+             1 : set([2,6]), 
+             2 : set([3, 7]), 
+             3 : set([7]), 
+             4 : set([1]), 
+             5 : set([2]), 
+             6 : set([]),
+             7 : set([3]),
+             8 : set([1, 2]),
+             9 : set([0, 3, 4, 5, 6, 7])} 
 
 def make_complete_graph(num_nodes):
     #Given the number of nodes, this returns a dictionary
@@ -50,13 +50,33 @@ def make_complete_graph(num_nodes):
         return xgraph # returning populated dict
 
 
-def compute_in_degress(digraph):
-    for node in digraph:
-        return 0 #dummy return. Using as a Place Holder
+def compute_in_degrees(digraph):
+    #given a directional Graph, this function will compute the total in degrees for each node
+    xgraph = {} # create a blank dict
+    for node in iter(digraph.viewkeys()): # creates an iter of just the keys in the dict. increase performance for larger data sets maybe? IE only shows the keys
+        xgraph[node] = 0 # from the list of keys (nodes) creates a new keys for a new dict
+        for edges in iter(digraph.viewvalues()): # creates an iter of just the values in the dict. increase performance for larger data sets maybe? IE only shows the values
+            if node in edges: # looks for the nodes in the edges (from dict values)
+                xgraph[node] += 1 # if node found increase by 1
+        #print digraph.itervalues()
+        
+    return xgraph # returns a new dict with nodes as keys and the value is how many in degrees
         
 
 def in_degree_distribution(digraph):
-    return 0 #dummy return. Using as a Place Holder
+    #Given a directional graph, this function will compute the in degree distribution
+    xgraph = {} #create a blank dict
+    x_in_degrees = compute_in_degrees(digraph) # This function has already been written. Reusing function
+    for degrees in iter(x_in_degrees.viewvalues()): # we are counting how many nodes have what degrees so we are in a since doing an inverse of the above function. Converting the degrees to the keys of the dict
+        if not xgraph.has_key(degrees): # since the same degrees show up multiple times we only want it to show up once (dict keys need to be unique anyways) this keeps errors from being thrown
+            xgraph[degrees] = 0 # this creates the key and sets an initial value of 0
+        xgraph[degrees]+= 1 # every time the degree comes up during the the loop it increase the value by 1
+    
+    return xgraph # returns the final dict
 
 
 
+# example usages
+print in_degree_distribution(EX_GRAPH1)
+print compute_in_degrees(EX_GRAPH2)
+print make_complete_graph(10)

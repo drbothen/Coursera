@@ -91,20 +91,20 @@ def in_degree_distribution(digraph):
 
     return xgraph # returns the final dict
 
-def load_graph(graph_url): # Function Provided By instructor 
+def load_graph(graph_url): # Function Provided By instructor
     """
     Function that loads a graph given the URL
     for a text representation of the graph
-    
+
     Returns a dictionary that models a graph
     """
     graph_file = urllib2.urlopen(graph_url)
     graph_text = graph_file.read()
     graph_lines = graph_text.split('\n')
     graph_lines = graph_lines[ : -1]
-    
+
     print "Loaded graph with", len(graph_lines), "nodes"
-    
+
     answer_graph = {}
     for line in graph_lines:
         neighbors = line.split(' ')
@@ -114,6 +114,22 @@ def load_graph(graph_url): # Function Provided By instructor
             answer_graph[node].add(int(neighbor))
 
     return answer_graph
+
+def normalize_in_degree_distribution(digraph):
+    """
+    Takes a directed graph, computes its unnormalized
+    in-degree distribution using function in_degree_distribution
+
+    Returns normalized distribution
+    """
+    unnormized_dist = in_degree_distribution(digraph)
+
+
+
+    return normalized_dist
+
+
+
 
 citation_graph = load_graph(CITATION_URL)
 

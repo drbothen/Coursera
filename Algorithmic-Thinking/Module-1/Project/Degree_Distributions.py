@@ -2,7 +2,7 @@
 Created on Aug 26, 2014
 @author: Joshua Magady
 Language: Python 2.x
-Script: Degree_Distrabution
+Script: Degree_Distributions
 """
 
 # below is the programming equivalent to the graphs used for module 1

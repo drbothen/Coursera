@@ -11,24 +11,24 @@ EX_GRAPH0 = { 0 : set([1,2]),
               1 : set([]),
               2 : set([])}
 
-EX_GRAPH1 = {0 : set([1,4,5]), 
-             1 : set([2,6]), 
-             2 : set([3]), 
-             3 : set([0]), 
-             4 : set([1]), 
-             5 : set([2]), 
-             6: set([])} 
+EX_GRAPH1 = {0 : set([1,4,5]),
+             1 : set([2,6]),
+             2 : set([3]),
+             3 : set([0]),
+             4 : set([1]),
+             5 : set([2]),
+             6: set([])}
 
-EX_GRAPH2 = {0 : set([1,4,5]), 
-             1 : set([2,6]), 
-             2 : set([3, 7]), 
-             3 : set([7]), 
-             4 : set([1]), 
-             5 : set([2]), 
+EX_GRAPH2 = {0 : set([1,4,5]),
+             1 : set([2,6]),
+             2 : set([3, 7]),
+             3 : set([7]),
+             4 : set([1]),
+             5 : set([2]),
              6 : set([]),
              7 : set([3]),
              8 : set([1, 2]),
-             9 : set([0, 3, 4, 5, 6, 7])} 
+             9 : set([0, 3, 4, 5, 6, 7])}
 
 def make_complete_graph(num_nodes):
     """
@@ -50,9 +50,9 @@ def make_complete_graph(num_nodes):
                 #print edge_node # testing - REMOVE
                 if edge_node != base_node: #No Looping is allowed for this project. Therefor we check to insure the we are not counting a self node connection (edge_node NOT equal base_node)
                     xlist.add(edge_node) # Populating list that will be added to dict
-                    
+
             xgraph[base_node] = xlist # Appending created list to the dict
-            
+
         return xgraph # returning populated dict
 
 
@@ -67,9 +67,9 @@ def compute_in_degrees(digraph):
             if node in edges: # looks for the nodes in the edges (from dict values)
                 xgraph[node] += 1 # if node found increase by 1
         #print digraph.itervalues()
-        
+
     return xgraph # returns a new dict with nodes as keys and the value is how many in degrees
-        
+
 
 def in_degree_distribution(digraph):
     """
@@ -81,7 +81,7 @@ def in_degree_distribution(digraph):
         if not xgraph.has_key(degrees): # since the same degrees show up multiple times we only want it to show up once (dict keys need to be unique anyways) this keeps errors from being thrown
             xgraph[degrees] = 0 # this creates the key and sets an initial value of 0
         xgraph[degrees]+= 1 # every time the degree comes up during the the loop it increase the value by 1
-    
+
     return xgraph # returns the final dict
 
 

@@ -98,6 +98,32 @@ def in_degree_distribution(digraph):
     return xgraph # returns the final dict
 #end in_degree_distribution function
 
+def compute_out_degrees(digraph): # part of answer to question 3
+    """
+    Given a Graph, count the number of out degrees
+    """
+    xgraph = {}
+    print  "Processing the number of Out-Degrees" # Status indicator for long processing times
+    for node in iter(digraph.viewkeys()): # creates an iter of just the keys in the dict. increase performance for larger data sets maybe? IE only shows the keys
+            xgraph[node] = len(digraph[node]) # creates node in graph and assigns it to the number of out degrees to begin count
+    print "Finished Counting Out-Degrees" # Status indicator for long processing times
+
+    return xgraph # return created graph with node + count of out degrees
+#end compute_out_degrees function
+
+def compute_out_degrees_average(digraph): # part of answer to question 3. Takes input from compute_out_degrees
+    """Computes the average Out-Degree for a node in the graph"""
+    print  "Processing average number of Out-Degrees for a node" # Status indicator for long processing times
+    out_degrees_g = compute_out_degrees(digraph)
+    number_nodes = len(out_degrees_g.keys())
+    count_out_degrees = 0
+    for node in iter(out_degrees_g.viewkeys()):
+        count_out_degrees += out_degrees_g[node]
+
+    print  "Finished Processing average number of Out-Degrees for a node" # Status indicator for long processing times
+    return count_out_degrees / number_nodes
+#end compute_out_degrees_average function
+
 def load_graph(graph_url): # Function Provided By instructor - Grabs a specific graph from the internet and converts it to a form we can use
     """
     Function that loads a graph given the URL
@@ -119,6 +145,8 @@ def load_graph(graph_url): # Function Provided By instructor - Grabs a specific 
         answer_graph[node] = set([])
         for neighbor in neighbors[1 : -1]:
             answer_graph[node].add(int(neighbor))
+
+    print "Finished processing Out-Degrees"
 
     return answer_graph
 #end load_graph function
@@ -155,7 +183,7 @@ def plot_normalized_in_degrees(ndigraph):
     plot.show() # Displays the Graph
 
     return # returns nothing
-
+# end plot_normalized_in_degrees function
 """
 example usages:
     print in_degree_distribution(EX_GRAPH1)
@@ -171,7 +199,9 @@ Start of actual program
 #print in_degree_distribution(load_graph(CITATION_URL))
 #print normalize_in_degree_distribution(load_graph(CITATION_URL))
 #plot_normalized_in_degrees(normalize_in_degree_distribution(load_graph(CITATION_URL))) #uncomment to create citation graph
-
+#load_graph(CITATION_URL) # part of answer to question 3
+#print compute_out_degrees(load_graph(CITATION_URL))
+print compute_out_degrees_average(load_graph(CITATION_URL)) # gives you complete answer for question 3. n = number of nodes loaded. m = average out degree
 
 
 

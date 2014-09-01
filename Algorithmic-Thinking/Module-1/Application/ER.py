@@ -44,7 +44,7 @@ def er(num_nodes,p) :
                     complete_graph[node_index].add(edge_index)
     return complete_graph
 
-graph = er(10000, 0.2)
+graph = er(10000, 0.01)
 distribution = normalize_in_degree_distribution(graph)
 
 plt.title('Normalized in-degree distribution (Point graph)')

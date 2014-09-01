@@ -130,12 +130,13 @@ def normalize_in_degree_distribution(digraph):
 
     Returns normalized distribution
     """
-    print "Normalizing In-Degree Distribution" # Status indicator for long processing times
+    print "Start Normalizing In-Degree Distribution" # Status indicator for long processing times
     normalize_dist = {} # Create blank dict
     node_count = len(digraph) # get node count
     unnormized_dist = in_degree_distribution(digraph) # compute unnormalized dist and save to var
     for in_degree in iter(unnormized_dist.viewkeys()): # create and iter view and loop through each value
         normalize_dist[in_degree] = unnormized_dist[in_degree] / node_count
+    print "End Normalizing In-Degree Distribution" # Status indicator for long processing times
 
     return normalize_dist
 #end normize_in_degree_distribution function
@@ -145,15 +146,15 @@ def plot_normalized_in_degrees(ndigraph):
     Creates a log/log plot of the points from a normalized distribution
     """
     print "Creating Plot" # Status indicator for long processing times
-    plot.title('Normalized in-degree distribution (Point graph)')
-    plot.xlabel('In-degrees (log)')
-    plot.ylabel('Normalized Values (log)')
-    plot.xscale("log")
-    plot.yscale("log")
-    plot.plot(ndigraph.keys(), ndigraph.values(), 'ro')
-    plot.show()
+    plot.title('Normalized in-degree distribution (Point graph)') # Sets the name of the graph window
+    plot.xlabel('In-degrees (log)') # Labels the X cords
+    plot.ylabel('Normalized Values (log)') # Labels the Y Cords
+    plot.xscale("log") # Sets the Scale of the graph on x cords to log
+    plot.yscale("log") # Sets the Scale of the graph on y cords to log
+    plot.plot(ndigraph.keys(), ndigraph.values(), "go") # creates the graph using the cords. (This case uses the degree distribution as X and the percentage of times it appears as Y. **kwargs as "g" for the color green. "o" for marker type: Circle
+    plot.show() # Displays the Graph
 
-    return
+    return # returns nothing
 
 """
 example usages:

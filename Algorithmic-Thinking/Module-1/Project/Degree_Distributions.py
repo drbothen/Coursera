@@ -29,6 +29,7 @@ EX_GRAPH2 = {0 : set([1,4,5]),
              7 : set([3]),
              8 : set([1, 2]),
              9 : set([0, 3, 4, 5, 6, 7])}
+# end of graphs
 
 def make_complete_graph(num_nodes):
     """
@@ -54,7 +55,7 @@ def make_complete_graph(num_nodes):
             xgraph[base_node] = xlist # Appending created list to the dict
 
         return xgraph # returning populated dict
-
+#end make_complete_graph function
 
 def make_complete_graph_effecent(num_nodes):
     """
@@ -80,6 +81,7 @@ def make_complete_graph_effecent(num_nodes):
             xgraph[base_node] = xlist # Appending created list to the dict
 
         return xgraph # returning populated dict
+#end make_complete_graph_effecent function
 
 def compute_in_degrees(digraph):
     """
@@ -94,8 +96,7 @@ def compute_in_degrees(digraph):
         #print digraph.itervalues()
 
     return xgraph # returns a new dict with nodes as keys and the value is how many in degrees
-
-
+#end compute_in_degrees function
 
 def in_degree_distribution(digraph):
     """
@@ -109,6 +110,7 @@ def in_degree_distribution(digraph):
         xgraph[degrees]+= 1 # every time the degree comes up during the the loop it increase the value by 1
 
     return xgraph # returns the final dict
+#end in_degree_distribution function
 
 
 

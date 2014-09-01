@@ -28,7 +28,7 @@ Once you have created your plot, upload your plot in the box below using "Attach
 • Is the content of the plot correct? 
 
 
-
+--------------------------------------------------------------------------------------------------------------------------------
 
 Question 2 (3 pts)
 In Homework 1, you saw Algorithm ER for generating random graphs and reasoned analytically about the properties of the ER graphs it generates. Consider the simple modification of the algorithm to generate random directed graphs: For every pair of nodes, i and j, the modified algorithm considers the pair twice, once to add an edge (i,j) with probability p, and another to add an edge (j,i) with probability p. 
@@ -42,7 +42,7 @@ Once you have determined the shape of the in-degree distributions for ER graphs,
 • Does the shape of the in-degree distribution plot for ER look similar to the shape of the in-degree distribution for the citation graph? Provide a short explanation of the similarities or differences. Focus on comparing the shape of the two plots as discussed in the class page on "Creating, formatting, and comparing plots". 
 
 
-
+--------------------------------------------------------------------------------------------------------------------------------
 
 Question 3 (2 pts)
 We next consider a different process for generating synthetic directed graphs. In this process, a random directed graph is generated iteratively, where in each iteration a new node is created, added to the graph, and connected to a subset of the existing nodes. This subset is chosen based on the in-degrees of the existing nodes. More formally, to generate a random directed graph in this process, the user must specify two parameters: n, which is the final number of nodes, and m (where m≤n), which is the number of existing nodes to which a new node is connected during each iteration. Notice that m is fixed throughout the procedure. 
@@ -60,7 +60,7 @@ Notice that this algorithm is more complex than the ER algorithm. As a result, r
 For this question, provide numerical values for n and m that you will use in your construction of the DPA graph.
 
 
-
+--------------------------------------------------------------------------------------------------------------------------------
 
 Question 4 (3 pts) 
 Your task for this question is to implement the DPA algorithm, compute a DPA graph using the values from Question 3, and then plot the in-degree distribution for this DPA graph. Creating an efficient implementation of the DPA algorithm from scratch is surprisingly tricky. The key issue in implementing the algorithm is to avoid iterating through every node in the graph when executing Line 6. Using a loop to implement Line 6 leads to implementations that require on the order of 30 minutes in desktop Python to create a DPA graph with 28000 nodes. 
@@ -79,7 +79,7 @@ Once you have created a DPA graph of the appropriate size, compute a (normalized
 • Is the content of the plot correct? 
 
 
-
+--------------------------------------------------------------------------------------------------------------------------------
 
 Question 5 (3 pts)
 In this last problem, we will compare the in-degree distribution for the citation graph to the in-degree distribution for the DPA graph as constructed in Question 4. In particular, we will consider whether the shape of these two distributions are similar and, if they are similar, what might be the cause of the similarity. 
@@ -94,3 +94,6 @@ When answering this question, please include answers to the following:
 • Is the in-degree distribution for the DPA graph similar to that of the citation graph? Provide a short explanation of the similarities or differences. Focus on the various properties of the two plots as discussed in the class page on "Creating, formatting, and comparing plots". 
 • Which one of the three social phenomena listed above mimics the behavior of the DPA process? Provide a short explanation for your answer. 
 • Could one of these phenomena explain the structure of the physics citation graph? Provide a short explanation for your answer.
+
+
+-------------------------------------------------------------------------------------------------------------------------------

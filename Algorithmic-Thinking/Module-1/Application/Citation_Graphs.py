@@ -201,7 +201,7 @@ Start of actual program
 #plot_normalized_in_degrees(normalize_in_degree_distribution(load_graph(CITATION_URL))) #uncomment to create citation graph
 #load_graph(CITATION_URL) # part of answer to question 3
 #print compute_out_degrees(load_graph(CITATION_URL))
-print compute_out_degrees_average(load_graph(CITATION_URL)) # gives you complete answer for question 3. n = number of nodes loaded. m = average out degree
+#print compute_out_degrees_average(load_graph(CITATION_URL)) # gives you complete answer for question 3. n = number of nodes loaded. m = average out degree
 
 
 

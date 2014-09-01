@@ -5,7 +5,7 @@ Language: Python 2.x
 Script: ER Algorithm
 """
 import random
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plot
 from Citation_Graphs import normalize_in_degree_distribution
 
 """
@@ -28,7 +28,7 @@ def er(num_of_nodes, probability):
 random.seed(5)
 def er(num_nodes,p) :
     """
-    Takes the number of nodes num_nodes and returns a dictionary corresponding to a complete directed graph with the specified number of nodes
+    Takes the number of nodes num_nodes and returns a dictionary corresponding to a complete directed graph with the specified number of nodes. factors in probability that an edge is present
 
     """
     complete_graph = {}
@@ -44,11 +44,11 @@ def er(num_nodes,p) :
                     complete_graph[node_index].add(edge_index)
     return complete_graph
 
-graph = er(10000, 0.01)
+graph = er(10000, 0.05)
 distribution = normalize_in_degree_distribution(graph)
 
-plt.title('Normalized in-degree distribution (Point graph)')
-plt.xlabel('In-degrees (log)')
-plt.ylabel('Normalized Values (log)')
-plt.loglog(distribution.keys(), distribution.values(), 'ro')
-plt.show()
+plot.title('Normalized in-degree distribution (Point graph)')
+plot.xlabel('In-degrees (log)')
+plot.ylabel('Normalized Values (log)')
+plot.loglog(distribution.keys(), distribution.values(), 'ro')
+plot.show()

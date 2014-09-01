@@ -170,7 +170,7 @@ Start of actual program
 """
 #print in_degree_distribution(load_graph(CITATION_URL))
 #print normalize_in_degree_distribution(load_graph(CITATION_URL))
-plot_normalized_in_degrees(normalize_in_degree_distribution(load_graph(CITATION_URL)))
+#plot_normalized_in_degrees(normalize_in_degree_distribution(load_graph(CITATION_URL))) #uncomment to create citation graph
 
 
 

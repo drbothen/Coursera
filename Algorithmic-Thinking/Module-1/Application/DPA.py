@@ -10,9 +10,6 @@ of DPA algorithm
 
 # general imports
 import random
-#import App
-#import Main
-#import Citation_Graphs as cita
 import matplotlib.pyplot as plt
 
 class DPATrial:

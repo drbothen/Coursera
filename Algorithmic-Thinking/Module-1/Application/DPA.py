@@ -161,8 +161,8 @@ graph1 = normalize_in_degree_distribution(make_DPA_graph(27770,12))
 #print graph1
 
 plt.loglog( graph1.keys(), graph1.values(), 'bo')
-plt.xlabel('Papers ID')
-plt.ylabel('Citation Frequency')
-plt.title('DPA - Citation Model Data')
+plt.xlabel('Papers ID (log)')
+plt.ylabel('Citation Frequency (log)')
+plt.title('DPA - Citation Model Data (Point Graph)')
 plt.show()
 

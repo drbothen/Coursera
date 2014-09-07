@@ -1,5 +1,5 @@
 from __future__ import division
-__author__ = 'Luis Ovalle'
+__author__ = 'Joshua Magady'
 
 """
 Provided code for application portion of module 1

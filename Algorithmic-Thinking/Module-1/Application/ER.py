@@ -6,7 +6,9 @@ Script: ER Algorithm
 """
 import random
 import matplotlib.pyplot as plot
+import matplotlib.patches as mpatches
 from Citation_Graphs import normalize_in_degree_distribution
+
 
 """
 def er(num_of_nodes, probability):
@@ -51,4 +53,6 @@ plot.title('Normalized in-degree distribution (Point graph)')
 plot.xlabel('In-degrees (log)')
 plot.ylabel('Normalized Values (log)')
 plot.loglog(distribution.keys(), distribution.values(), 'ro')
+er_plotted = mpatches.Patch(color='red', label='ER Algorithm')
+plot.legend(handles = [er_plotted])
 plot.show()

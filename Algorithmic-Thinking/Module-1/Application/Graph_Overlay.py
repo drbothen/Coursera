@@ -12,6 +12,7 @@ This generates Graphs for all questions and OutPuts them all on the same graph
 """
 
 import random
+import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import urllib2
@@ -201,18 +202,29 @@ def er(num_nodes,p) :
                     complete_graph[node_index].add(edge_index)
     return complete_graph
 
+
+#def lineofbestfit(normgraph): This is a none working experamental function
+    #xBest = np.polyfit(normgraph.keys(), normgraph.values(), 1)
+    #xbest1d = np.poly1d(xBest)
+    #return xbest1d
+
 citation_graph = normalize_in_degree_distribution(load_graph(CITATION_URL))
-er_graph = normalize_in_degree_distribution(er(10000, 0.05))
+#er_graph = normalize_in_degree_distribution(er(10000, 0.05))
+#ci_best = lineofbestfit(citation_graph) # Experimental non working
+#print er_graph.values() # Experimental non working
+#er_best = lineofbestfit(citation_graph) # Experimental non working
+#print er_best(er_graph.values()) # Experimental non working
 dpa_graph = normalize_in_degree_distribution(make_DPA_graph(27770,12))
 
 plt.loglog( citation_graph.keys(), citation_graph.values(), 'go')
-plt.loglog( er_graph.keys(), er_graph.values(), 'ro')
+#plt.loglog( er_graph.keys(), er_graph.values(), 'ro',er_graph.keys(), er_best(er_graph.keys()), '--k')
+#plt.loglog(er_best(er_graph.keys()),  er_best(er_graph.values()))
 plt.loglog ( dpa_graph.keys(), dpa_graph.values(), 'bo')
-plt.title('Normalized in-degree distribution[Citation/ER] (Point graph)')
+plt.title('Normalized in-degree distribution[Citation/DPA] (Point graph)')
 plt.xlabel('In-degrees (log)')
 plt.ylabel('Normalized Values (log)')
-er_plotted = mpatches.Patch(color='red', label='ER Algorithm')
+#er_plotted = mpatches.Patch(color='red', label='ER Algorithm')
 cit_plotted = mpatches.Patch(color='green', label='Citation Graph')
 dpa_plotted = mpatches.Patch(color='blue', label='DPA Algorithm')
-plt.legend(handles = [er_plotted, cit_plotted, dpa_plotted])
+plt.legend(handles = [dpa_plotted, cit_plotted])
 plt.show()

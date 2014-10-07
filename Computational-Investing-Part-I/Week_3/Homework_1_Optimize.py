@@ -82,6 +82,10 @@ def optimal_allocation(start_date, end_date, ls_symbols, p_increase = 0.1):
 
     return best_allo, best_sharpe
 
+
+def print_results():
+    pass
+
 ls_symbolsx = ['BRCM', 'TXN', 'IBM', 'HNZ']
 ls_allocation = [0.4, 0.4, 0.0, 0.2]
 start = '1/1/2011'

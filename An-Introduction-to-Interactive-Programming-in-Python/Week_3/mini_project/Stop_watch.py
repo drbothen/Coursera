@@ -27,14 +27,15 @@ def start_button_handler():
     timer.start()
 
 def stop_button_handler():
+       # make sure stopwatch was actually running to register a game
+   # if timer.is_running():
     global g_played, g_won
     if timer.is_running() == False:
         return
     else:
         timer.stop()
 
-    # make sure stopwatch was actually running to register a game
-   # if timer.is_running():
+
         # increment g_played
         g_played += 1
 
@@ -44,7 +45,7 @@ def stop_button_handler():
             g_won += 1
 
     # mark the state as not running
-    #isStopwatchRunning = False
+
 
 def reset_button_handler():
     # stop the times and reset the stopwatch

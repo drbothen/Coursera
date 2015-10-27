@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Color Guessing Game</title>
+</head>
+<body>
+<script>
+    var colorchoice = ["AliceBlue", "Aqua", "Black", "Blue", "Cyan", "DarkBlue", "DarkGray", "Maroon", "SteelBlue", "Wheat"];
+
+    function check_guess(userguess, computerguess){
+        if(userguess.toLowerCase() == computerguess.toLowerCase()){
+            return true;
+        }
+        else{
+            return false
+        }
+    }
+
+    function do_game(option){
+        var indexChoice = Math.floor(Math.random() * option.length);
+        var correctChoice = false
+        alert("Computer Selected: "+ option[indexChoice]);
+
+        while(!correctChoice){
+            var userchoice = prompt("I am thinking of one of these colors: \n\n" +
+                    option.join(", ") + "\n\n" + "what color am I thinking  of?");
+            correctChoice = check_guess(userchoice, option[indexChoice]);
+        }
+    }
+
+
+    do_game(colorchoice.sort());
+</script>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Color Guessing Game</title>
+</head>
+<body>
+<script>
+    var colorchoice = ["AliceBlue", "Aqua", "Black", "Blue", "Cyan", "DarkBlue", "DarkGray", "Maroon", "SteelBlue", "Wheat"];
+    Array.prototype.toLowerCase = function() {
+        for (var i = 0; i < this.length; i++) {
+            this[i] = this[i].toString().toLowerCase();
+        }
+        return this;
+    };
+
+    function check_guess(userguess, computerguess, list, tries){
+        var newlist = list.slice(0);
+        newlist.toLowerCase();
+        if(userguess.toLowerCase() === computerguess.toLowerCase()){
+            var myBody=document.getElementsByTagName("body")[0];
+            myBody.style.background = computerguess;
+            alert("Congratulations! You have guessed the color!\n\n" +
+                    "The color was " + computerguess +
+                    ".\.\ It took you " + tries + " guess(es) to finish the game!\n\n" +
+                    "You can see the color in the background");
+            return true;
+        }
+        else if(newlist.indexOf(userguess.toLowerCase()) === -1) {
+            alert("Sorry, I don't recognize your color.\n\n" +
+                   "Please try again.");
+            return false;
+        }
+        else if(userguess.toLowerCase() > computerguess.toLowerCase()){
+            alert("Sorry, your guess is not correct!\n\n" +
+                    "Hint: Your input is alphabetically higher than mine.\n\n" +
+                    "Please try again");
+            return false;
+        }
+        else if(userguess.toLowerCase() < computerguess.toLowerCase()){
+            alert("Sorry, your guess is not correct!\n\n" +
+                    "Hint: Your input is alphabetically lower than mine.\n\n" +
+                    "Please try again");
+            return false;
+        }
+    }
+
+    function do_game(option){
+        var indexChoice = Math.floor(Math.random() * option.length);
+        var chances = 0;
+        var correctChoice = false;
+        alert("Computer Selected: "+ option[indexChoice]);
+
+        while(!correctChoice){
+            var userchoice = prompt("I am thinking of one of these colors: \n\n" +
+                    option.join(", ") + "\n\n" + "what color am I thinking  of?");
+            chances++;
+            correctChoice = check_guess(userchoice, option[indexChoice], option, chances);
+        }
+    }
+
+
+    do_game(colorchoice.sort());
+</script>
+
+</body>
+</html>

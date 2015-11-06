@@ -1,6 +1,6 @@
-* {
+/** * {
     border: 1px solid red !important;
-}
+} **/
 
 .row-header{
     margin: 0px auto;
@@ -64,4 +64,11 @@ body {
 
 .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
     color: #000000;
+}
+
+.tab-content {
+    border-left: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    padding: 10px;
 }

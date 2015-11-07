@@ -1,4 +1,4 @@
-* { /** For development purposes only **/
+* {
     border: 1px solid red !important;
 }
 
@@ -71,4 +71,8 @@ body {
     border-right: 1px solid #dddddd;
     border-bottom: 1px solid #dddddd;
     padding: 10px;
+}
+
+.affix {
+    top: 100px;
 }

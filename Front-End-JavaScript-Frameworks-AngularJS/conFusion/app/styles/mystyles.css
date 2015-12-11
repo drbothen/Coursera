@@ -1,6 +1,3 @@
-.jumbotron {
-  border: 1px solid red !important;
-}
 .row-header {
   margin: 0px auto;
   padding: 0px 0px;
@@ -74,9 +71,9 @@
   color: #eeeeee;
 }
 address {
+  color: #0f0f0f;
   font-size: 80%;
   margin: 0px;
-  color: #0f0f0f;
 }
 body {
   align: center;
@@ -84,16 +81,16 @@ body {
   z-index: 0;
 }
 .tab-content {
+  border-bottom: 1px solid #dddddd;
   border-left: 1px solid #dddddd;
   border-right: 1px solid #dddddd;
-  border-bottom: 1px solid #dddddd;
   padding: 10px;
 }
 .affix {
   top: 100px;
 }
 #carouselButtons {
-  right: 0px;
-  position: absolute;
   bottom: 0px;
+  position: absolute;
+  right: 0px;
 }

@@ -49,5 +49,7 @@ crashlytics.properties
 crashlytics-build.properties
 
 # custom Additions
-/bower_components/
-/node-examples/
+bower_components/
+node-examples/
+node_modules/
+.DS_Store

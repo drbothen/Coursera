@@ -29,7 +29,7 @@ module.exports = function (grunt) {
         },
 
         useminPrepare: {
-            html: 'app/dishdetail.html',
+            html: 'app/menu.html',
             options: {
                 dest: 'dist'
             }
@@ -145,29 +145,14 @@ module.exports = function (grunt) {
                     base:{
                         path: 'dist',
                         options: {
-                            index: 'dishdetail.html',
+                            index: 'menu.html',
                             maxAge: 300000
                         }
                     }
                 }
             }
         },
-        // ngAnnotate add, removes, add rebuilds angularjs dependency injection annotations
-        ngAnnotate: {
-            options: {
-                singleQuotes: true
-            },
-            app: {
-                files: [
-                    {
-                        expand: true,
-                        src: ['.tmp/concat/scripts*.js']
 
-                    }
-                ]
-
-            }
-        },
         clean: {
             build:{
                 src: [ 'dist/']
@@ -180,7 +165,6 @@ module.exports = function (grunt) {
         'jshint',
         'useminPrepare',
         'concat',
-        'ngAnnotate',
         'cssmin',
         'uglify',
         'copy',

@@ -293,64 +293,41 @@ console.log("WARNING: Tried to load angular more than once."):(ce(),ee(fa),fa.mo
 SHORTMONTH:"Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" "),WEEKENDRANGE:[5,6],fullDate:"EEEE, MMMM d, y",longDate:"MMMM d, y",medium:"MMM d, y h:mm:ss a",mediumDate:"MMM d, y",mediumTime:"h:mm:ss a","short":"M/d/yy h:mm a",shortDate:"M/d/yy",shortTime:"h:mm a"},NUMBER_FORMATS:{CURRENCY_SYM:"$",DECIMAL_SEP:".",GROUP_SEP:",",PATTERNS:[{gSize:3,lgSize:3,maxFrac:3,minFrac:0,minInt:1,negPre:"-",negSuf:"",posPre:"",posSuf:""},{gSize:3,lgSize:3,maxFrac:2,minFrac:2,minInt:1,negPre:"-\u00a4",
 negSuf:"",posPre:"\u00a4",posSuf:""}]},id:"en-us",pluralCat:function(a,c){var e=a|0,f=c;u===f&&(f=Math.min(b(a),3));Math.pow(10,f);return 1==e&&0==f?"one":"other"}})}]),B(X).ready(function(){Zd(X,yc)}))})(window,document);!window.angular.$$csp().noInlineStyle&&window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 //# sourceMappingURL=angular.min.js.map
+;'use strict';
+
+angular.module('confusionApp', [])
+
+;
+
 ;/**
- * Created by josh on 12/20/2015.
+ * Created by josh on 12/25/2015.
  */
 'use strict';
 
-angular.module('confusionApp',[])
-    .controller('MenuController', ['$scope', function($scope) {
+angular.module('confusionApp')
+    .controller('MenuController', ['$scope', 'menuFactory',function($scope, menuFactory) {
 
         $scope.tab = 1;
-        $scope.filtText = "";
+        $scope.filtText = '';
         $scope.showDetails = false;
 
-         $scope.dishes = [
-                {
-                    name:'Uthapizza',
-                    image: 'images/uthapizza.png',
-                    category: 'mains',
-                    label:'Hot',
-                    price:'4.99',
-                    description:'A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.',
-                    comment: ''
-                },
-                {
-                    name:'Zucchipakoda',
-                    image: 'images/zucchipakoda.png',
-                    category: 'appetizer',
-                    label:'',
-                    price:'1.99',
-                    description:'Deep fried Zucchini coated with mildly spiced Chickpea flour batter accompanied with a sweet-tangy tamarind sauce',
-                    comment: ''
-                },
-                {
-                    name:'Vadonut',
-                    image: 'images/vadonut.png',
-                    category: 'appetizer',
-                    label:'New',
-                    price:'1.99',
-                    description:'A quintessential ConFusion experience, is it a vada or is it a donut?',
-                    comment: ''
-                },
-                {
-                    name:'ElaiCheese Cake',
-                    image: 'images/elaicheesecake.png',
-                    category: 'dessert',
-                    label:'',
-                    price:'2.99',
-                    description:'A delectable, semi-sweet New York Style Cheese Cake, with Graham cracker crust and spiced with Indian cardamoms',
-                    comment: ''
-                }
-         ];
+        $scope.dishes = menuFactory.getDishes();
 
         $scope.select = function(setTab) {
             $scope.tab = setTab;
 
-            if (setTab === 2) {$scope.filtText = "appetizer";}
-            else if (setTab === 3) {$scope.filtText = "mains";}
-            else if (setTab === 4) {$scope.filtText = "dessert";}
-            else {$scope.filtText = "";}
+            if (setTab === 2) {
+                $scope.filtText = "appetizer";
+            }
+            else if (setTab === 3) {
+                $scope.filtText = "mains";
+            }
+            else if (setTab === 4) {
+                $scope.filtText = "dessert";
+            }
+            else {
+                $scope.filtText = "";
+            }
         };
 
         $scope.isSelected = function (checkTab) {
@@ -360,56 +337,258 @@ angular.module('confusionApp',[])
         $scope.toggleDetails = function() {
             $scope.showDetails = !$scope.showDetails;
         };
-}])
-    .controller('ContactController', ['$scope', function($scope){
-        $scope.feedback = {
-            mychannel:"",
-            firstName:"",
-            lastName:"",
-            agree: false,
-            email:""
-        };
+    }])
 
-        $scope.channels = [
-            {
-                value:"tel",
-                label:"Tel."
-            },
-            {
-                value:"Email",
-                label:"Email"
-            }
-        ];
+    .controller('ContactController', ['$scope', function($scope) {
 
-         $scope.invalidChannelSelection = false;
+        $scope.feedback = {mychannel:"", firstName:"", lastName:"", agree:false, email:"" };
+
+        var channels = [{value:"tel", label:"Tel."}, {value:"Email",label:"Email"}];
+
+        $scope.channels = channels;
+        $scope.invalidChannelSelection = false;
 
     }])
 
     .controller('FeedbackController', ['$scope', function($scope) {
-        $scope.sendFeedback = function () {
+
+        $scope.sendFeedback = function() {
+
             console.log($scope.feedback);
 
-
-            if ($scope.feedback.agree &&
-                ($scope.feedback.mychannel === "")) {
+            if ($scope.feedback.agree && ($scope.feedback.mychannel === "")) {
                 $scope.invalidChannelSelection = true;
                 console.log('incorrect');
             }
             else {
                 $scope.invalidChannelSelection = false;
-                $scope.feedback = {
-                    mychannel: "",
-                    firstName: "",
-                    lastName: "",
-                    agree: false,
-                    email: ""
-                };
-                $scope.feedback.mychannel = "";
+                $scope.feedback = {mychannel:"", firstName:"", lastName:"", agree:false, email:"" };
+                $scope.feedback.mychannel="";
                 $scope.feedbackForm.$setPristine();
                 console.log($scope.feedback);
             }
         };
+    }])
+
+    .controller('DishDetailController', ['$scope', 'menuFactory', function($scope, menuFactory) {
+
+        var dish = menuFactory.getDish(1);
+        $scope.dish = dish;
 
     }])
 
+    .controller('DishCommentController', ['$scope', function($scope) {
+
+        //Step 1: Create a JavaScript object to hold the comment from the form
+        $scope.comment = {
+            rating: "5",
+            comment: "",
+            author: "",
+            date: ""
+        };
+
+        $scope.submitComment = function () {
+
+            //Step 2: This is how you record the date
+            //"The date property of your JavaScript object holding the comment" = new Date().toISOString();
+            $scope.comment.date = new Date().toISOString();
+            // Step 3: Push your comment into the dish's comment array
+            $scope.dish.comments.push($scope.comment);
+            //Step 4: reset your form to pristine
+            $scope.commentForm.$setPristine();
+
+            console.log($scope.dish);
+            //Step 5: reset your JavaScript object that holds your comment
+            $scope.comment = {
+                author: "",
+                rating: "5",
+                comment: "",
+                date:""
+            };
+        };
+    }])
+
+;;/**
+ * Created by josh on 12/25/2015.
+ */
+'use strict';
+
+angular.module('confusionApp')
+    .service('menuFactory', function() {
+
+
+        var dishes=[
+            {
+                name:'Uthapizza',
+                image: 'images/uthapizza.png',
+                category: 'mains',
+                label:'Hot',
+                price:'4.99',
+                description:'A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.',
+                comments: [
+                    {
+                        rating:5,
+                        comment:"Imagine all the eatables, living in conFusion!",
+                        author:"John Lemon",
+                        date:"2012-10-16T17:57:28.556094Z"
+                    },
+                    {
+                        rating:4,
+                        comment:"Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
+                        author:"Paul McVites",
+                        date:"2014-09-05T17:57:28.556094Z"
+                    },
+                    {
+                        rating:3,
+                        comment:"Eat it, just eat it!",
+                        author:"Michael Jaikishan",
+                        date:"2015-02-13T17:57:28.556094Z"
+                    },
+                    {
+                        rating:4,
+                        comment:"Ultimate, Reaching for the stars!",
+                        author:"Ringo Starry",
+                        date:"2013-12-02T17:57:28.556094Z"
+                    },
+                    {
+                        rating:2,
+                        comment:"It's your birthday, we're gonna party!",
+                        author:"25 Cent",
+                        date:"2011-12-02T17:57:28.556094Z"
+                    }                                                          ]
+            },
+            {
+                name:'Zucchipakoda',
+                image: 'images/zucchipakoda.png',
+                category: 'appetizer',
+                label:'',
+                price:'1.99',
+                description:'Deep fried Zucchini coated with mildly spiced Chickpea flour batter accompanied with a sweet-tangy tamarind sauce',
+                comments: [
+                    {
+                        rating:5,
+                        comment:"Imagine all the eatables, living in conFusion!",
+                        author:"John Lemon",
+                        date:"2012-10-16T17:57:28.556094Z"
+                    },
+                    {
+                        rating:4,
+                        comment:"Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
+                        author:"Paul McVites",
+                        date:"2014-09-05T17:57:28.556094Z"
+                    },
+                    {
+                        rating:3,
+                        comment:"Eat it, just eat it!",
+                        author:"Michael Jaikishan",
+                        date:"2015-02-13T17:57:28.556094Z"
+                    },
+                    {
+                        rating:4,
+                        comment:"Ultimate, Reaching for the stars!",
+                        author:"Ringo Starry",
+                        date:"2013-12-02T17:57:28.556094Z"
+                    },
+                    {
+                        rating:2,
+                        comment:"It's your birthday, we're gonna party!",
+                        author:"25 Cent",
+                        date:"2011-12-02T17:57:28.556094Z"
+                    }                                                          ]
+            },
+            {
+                name:'Vadonut',
+                image: 'images/vadonut.png',
+                category: 'appetizer',
+                label:'New',
+                price:'1.99',
+                description:'A quintessential ConFusion experience, is it a vada or is it a donut?',
+                comments: [
+                    {
+                        rating:5,
+                        comment:"Imagine all the eatables, living in conFusion!",
+                        author:"John Lemon",
+                        date:"2012-10-16T17:57:28.556094Z"
+                    },
+                    {
+                        rating:4,
+                        comment:"Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
+                        author:"Paul McVites",
+                        date:"2014-09-05T17:57:28.556094Z"
+                    },
+                    {
+                        rating:3,
+                        comment:"Eat it, just eat it!",
+                        author:"Michael Jaikishan",
+                        date:"2015-02-13T17:57:28.556094Z"
+                    },
+                    {
+                        rating:4,
+                        comment:"Ultimate, Reaching for the stars!",
+                        author:"Ringo Starry",
+                        date:"2013-12-02T17:57:28.556094Z"
+                    },
+                    {
+                        rating:2,
+                        comment:"It's your birthday, we're gonna party!",
+                        author:"25 Cent",
+                        date:"2011-12-02T17:57:28.556094Z"
+                    }
+                ]
+            },
+            {
+                name:'ElaiCheese Cake',
+                image: 'images/elaicheesecake.png',
+                category: 'dessert',
+                label:'',
+                price:'2.99',
+                description:'A delectable, semi-sweet New York Style Cheese Cake, with Graham cracker crust and spiced with Indian cardamoms',
+                comments: [
+                    {
+                        rating:5,
+                        comment:"Imagine all the eatables, living in conFusion!",
+                        author:"John Lemon",
+                        date:"2012-10-16T17:57:28.556094Z"
+                    },
+                    {
+                        rating:4,
+                        comment:"Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
+                        author:"Paul McVites",
+                        date:"2014-09-05T17:57:28.556094Z"
+                    },
+                    {
+                        rating:3,
+                        comment:"Eat it, just eat it!",
+                        author:"Michael Jaikishan",
+                        date:"2015-02-13T17:57:28.556094Z"
+                    },
+                    {
+                        rating:4,
+                        comment:"Ultimate, Reaching for the stars!",
+                        author:"Ringo Starry",
+                        date:"2013-12-02T17:57:28.556094Z"
+                    },
+                    {
+                        rating:2,
+                        comment:"It's your birthday, we're gonna party!",
+                        author:"25 Cent",
+                        date:"2011-12-02T17:57:28.556094Z"
+                    }                                                          ]
+            }
+        ];
+
+        this.getDishes = function () {
+
+            return dishes;
+
+        };
+
+        this.getDish = function (index) {
+
+            return dishes[index];
+
+        };
+
+
+    })
 ;

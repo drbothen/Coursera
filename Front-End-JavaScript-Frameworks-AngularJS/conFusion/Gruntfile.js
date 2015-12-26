@@ -114,7 +114,7 @@ module.exports = function (grunt) {
                 tasks: [ 'build' ]
             },
             scripts: {
-                files: ['app/scripts/app.js'],
+                files: ['app/scripts/**/*.js'],
                 tasks:[ 'build']
             },
             styles: {

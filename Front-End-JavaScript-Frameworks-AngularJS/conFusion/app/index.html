@@ -16,7 +16,6 @@
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet"> <!-- font awesome needs to be first...? -->
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
-
     <link href="styles/bootstrap-social.css" rel="stylesheet">
     <link href="styles/mystyles.css" rel="stylesheet">
 <!-- endbuild -->
@@ -28,7 +27,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<ng-include src="'dishdetail.html'"></ng-include>
 
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -52,7 +50,7 @@
                          aria-hidden="true"></span> About</a></li>
                     <li><a href="#/menu">
                          <span class="glyphicon glyphicon-list-alt"
-                         aria-hidden="true"></span> 
+                         aria-hidden="true"></span>
                          Menu</a></li>
                      <li><a href="#/contactus">
                      <i class="fa fa-envelope-o"></i> Contact</a></li>
@@ -83,7 +81,9 @@
             </div>
         </div>
     </header>
-    
+
+    <ng-view></ng-view>
+
     <footer class="row-footer">
         <div class="container">
             <div class="row">             
@@ -129,10 +129,14 @@
 
 <!-- build:js scripts/main.js -->
     <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/angular-route/angular-route.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers.js"></script>
     <script src="scripts/services.js"></script>
 <!-- endbuild -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
 
 </body>
 

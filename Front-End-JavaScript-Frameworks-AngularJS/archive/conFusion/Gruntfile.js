@@ -29,7 +29,7 @@ module.exports = function (grunt) {
         },
 
         useminPrepare: {
-            html: 'app/menu.html',
+            html: 'app/index.html',
             options: {
                 dest: 'dist'
             }
@@ -63,7 +63,7 @@ module.exports = function (grunt) {
                 files: [{
                     src: [
                         'dist/scripts/*.js',
-                        'dist/styles/*.css',
+                        'dist/styles/*.css'
                     ]
                 }]
             }
@@ -145,7 +145,7 @@ module.exports = function (grunt) {
                     base:{
                         path: 'dist',
                         options: {
-                            index: 'menu.html',
+                            index: 'index.html',
                             maxAge: 300000
                         }
                     }
@@ -161,11 +161,9 @@ module.exports = function (grunt) {
                 files: [
                     {
                         expand: true,
-                        src: ['.tmp/concat/scripts*.js']
-
+                        src: ['.tmp/concat/scripts/*.js']
                     }
                 ]
-
             }
         },
         clean: {

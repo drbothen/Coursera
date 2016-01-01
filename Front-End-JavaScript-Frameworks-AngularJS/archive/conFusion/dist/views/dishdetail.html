@@ -1,6 +1,20 @@
 
-<div class="container">
-    <div class="row row-content" ng-controller="DishDetailController">
+<div class="container" ng-controller="DishDetailController">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul class="breadcrumb">
+                    <li><a ui-sref="app">Home</a></li>
+                    <li><a ui-sref="app.menu">Menu</a></li>
+                    <li class="active">Dish: {{dish.name}}</li>
+                </ul>
+            </div>
+            <div class="col-xs-12">
+                <h3>Dish: {{dish.name}}</h3>
+                <hr>
+            </div>
+        </div>
+
+    <div class="row row-content">
         <div class="col-xs-12">
             <button class="btn btn-xs btn-primary pull-right" type="button" ui-sref="app.menu">
                 Back to Menu

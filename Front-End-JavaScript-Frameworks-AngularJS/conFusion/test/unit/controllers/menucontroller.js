@@ -7,6 +7,7 @@ describe('Controller: MenuController', function () {
     beforeEach(module('confusionApp')); // before each test
 
     var MenuController, scope, $httpBackend;
+    var api_root = "http://localhost:3000/";
 
     // Initialize the controller and a mock scope
     beforeEach(inject(function ($controller, _$httpBackend_,  $rootScope, menuFactory) {
@@ -14,7 +15,8 @@ describe('Controller: MenuController', function () {
         // place here mocked dependencies
         $httpBackend = _$httpBackend_;
 
-        $httpBackend.expectGET("http://localhost:3000/dishes").respond([
+
+        $httpBackend.when('GET', api_root+"dishes").respond([
             {
                 "id": 0,
                 "name": "Uthapizza",

@@ -2,6 +2,8 @@
 
 module.exports = function (grunt) {
 
+
+
     // Time how long tasks take. Can help when optimizing build times
     require('time-grunt')(grunt);
 
@@ -114,7 +116,7 @@ module.exports = function (grunt) {
                 tasks: [ 'build' ]
             },
             scripts: {
-                files: ['app/scripts/**/*.js'],
+                files: ['app/scripts/**/*.js', 'test/**/*.js'],
                 tasks:[ 'build']
             },
             styles: {
@@ -170,12 +172,75 @@ module.exports = function (grunt) {
             build:{
                 src: [ 'dist/']
             }
+        },
+        // Grunt Protractor End to End testing automation
+        protractor: {
+            options: {
+                // Location of your protractor config file
+                configFile: "test/protractor.conf.js",
+
+                // Do you want the output to use fun colors?
+                noColor: false,
+
+                // Set to true if you would like to use the Protractor command line debugging tool
+                // debug: true,
+
+                // Additional arguments that are passed to the webdriver command
+                args: { }
+            },
+            e2e: {
+                options: {
+                    // Stops Grunt process if a test fails
+                    keepAlive: false
+                }
+            },
+            continuous: {
+                options: {
+                    keepAlive: true
+                }
+            }
+        },
+        // Grunt Karma Unit Testing Automation
+        karma: {
+            options: {
+                configFile: "test/karma.conf.js"
+            },
+            task: {
+                autoWatch: false,
+                background: false,
+                singleRun: true
+            },
+            dev: {
+                autoWatch: true,
+                background: false,
+                singleRun: false
+            }
+        },
+        // run cmd
+        run: {
+            options: {
+                wait: true
+            },
+            json: {
+                exec: "json-server --watch test/db/db.json"
+            }
+        },
+        // concurrent tasks
+        concurrent: {
+            servers: {
+                tasks:['run:json','watch'],
+                options: {
+                    logConcurrentOutput: true
+                }
+            }
         }
+
     });
 
     grunt.registerTask('build', [
         'clean',
         'jshint',
+        'karma:task',
         'useminPrepare',
         'concat',
         'ngAnnotate',
@@ -186,7 +251,26 @@ module.exports = function (grunt) {
         'usemin'
     ]);
 
-    grunt.registerTask('serve',['build', 'connect:dist', 'watch']);
+    // load NPM Tasks
+    // Grunt protractor runner
+    grunt.loadNpmTasks('grunt-protractor-runner');
+    // Grunt Karma runner
+    grunt.loadNpmTasks('grunt-karma');
+    // Grunt Run
+    grunt.loadNpmTasks('grunt-run');
+
+    // Grunt registered tasks
+    grunt.registerTask('serve',['build', 'connect:dist', 'concurrent:servers']);
 
     grunt.registerTask('default',['build']);
+
+    grunt.registerTask('e2e', ['protractor:e2e']);
+
+    grunt.registerTask('test', ['karma:dev', 'protractor:e2e']);
+
+    grunt.registerTask('contest', ['karma:dev', 'protractor:e2e', 'watch']);
+
+    grunt.registerTask('utest', ['karma:dev']);
+
+    grunt.registerTask('json', ['run:json']);
 };

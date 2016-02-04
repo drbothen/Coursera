@@ -1,0 +1,8 @@
+h1 {
+     font-size: 2em; /* sets font size */
+     color: red; /* set color */
+     margin: 5px 5px 5px 5px; /* changes the margin */
+ }
+.color {
+    color: #0000FF;
+}

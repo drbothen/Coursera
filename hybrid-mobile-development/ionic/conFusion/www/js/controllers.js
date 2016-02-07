@@ -11,25 +11,40 @@ angular.module('conFusion.controllers', [])
 
   // Form data for the login modal
   $scope.loginData = {};
+  $scope.reservation = {};
 
-  // Create the login modal that we will use later
+  // Create the modals that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal;
   });
 
-  // Triggered in the login modal to close it
+  $ionicModal.fromTemplateUrl('templates/reserve.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.reserveform = modal;
+  });
+
+  // Triggered in the modals to close it
   $scope.closeLogin = function() {
     $scope.modal.hide();
   };
 
-  // Open the login modal
+  $scope.closeReserve = function() {
+    $scope.reserveform.hide();
+  };
+
+  // Open the modals
   $scope.login = function() {
     $scope.modal.show();
   };
 
-  // Perform the login action when the user submits the login form
+  $scope.reserve = function() {
+    $scope.reserveform.show();
+  };
+
+  // Perform the action when the user submits the form
   $scope.doLogin = function() {
     console.log('Doing login', $scope.loginData);
 
@@ -39,9 +54,19 @@ angular.module('conFusion.controllers', [])
       $scope.closeLogin();
     }, 1000);
   };
+
+  $scope.doReserve = function() {
+    console.log('Doing reservation', $scope.reservation);
+
+    // Simulate a delay. Remove this and replace with your login
+    // code if using a login system
+    $timeout(function() {
+      $scope.closeReserve();
+    }, 1000);
+  };
 })
 
-  .controller('MenuController', ['$scope', 'menuFactory', 'baseURL', function($scope, menuFactory, baseURL) {
+  .controller('MenuController', ['$scope', 'menuFactory', 'favoriteFactory','baseURL', '$ionicListDelegate',function($scope, menuFactory, favoriteFactory, baseURL, $ionicListDelegate) {
 
     $scope.baseURL = baseURL;
     $scope.tab = 1;
@@ -87,6 +112,13 @@ angular.module('conFusion.controllers', [])
     $scope.toggleDetails = function() {
       $scope.showDetails = !$scope.showDetails;
     };
+
+    $scope.addFavorite = function (index) {
+      console.log("index is " + index);
+
+      favoriteFactory.addToFavorites(index);
+      $ionicListDelegate.closeOptionButtons();
+    }
   }])
 
   .controller('ContactController', ['$scope', function($scope) {
@@ -128,7 +160,7 @@ angular.module('conFusion.controllers', [])
     };
   }])
 
-  .controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', 'baseURL', function($scope, $stateParams, menuFactory, baseURL) {
+  .controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', 'favoriteFactory','baseURL', '$ionicPopover', '$ionicModal', function($scope, $stateParams, menuFactory, favoriteFactory, baseURL, $ionicPopover, $ionicModal) {
 
     $scope.baseURL = baseURL;
     $scope.showDish = false;
@@ -145,9 +177,82 @@ angular.module('conFusion.controllers', [])
       }
     );
 
+    // setup popover
+
+    $ionicPopover.fromTemplateUrl('templates/dish-detail-popover.html', {
+      scope: $scope
+    }).then(function(popover) {
+      $scope.popover = popover;
+    });
+
+    $scope.openPopover = function($event) {
+      $scope.popover.show($event);
+    };
+    $scope.closePopover = function() {
+      $scope.popover.hide();
+    };
+
+    // My Favorites
+
+    $scope.addFavorite = function (index) {
+      console.log("index is " + index);
+      favoriteFactory.addToFavorites(index);
+      $scope.closePopover();
+    };
+
+    // setup Modals
+
+    $ionicModal.fromTemplateUrl('templates/dish-comment.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.commentform = modal;
+    });
+
+    // Triggered in the modals to close it
+    $scope.closeComment = function() {
+      $scope.commentform.hide();
+    };
+
+    // Open the modals
+    $scope.openComment = function() {
+      $scope.commentform.show();
+    };
+
+    // Comment system
+
+    $scope.mycomment = {
+      rating:5,
+      comment:"",
+      author:"",
+      date:""
+    };
+
+    $scope.submitComment = function () {
+      $scope.closeComment();
+      
+      $scope.mycomment.date = new Date().toISOString();
+      console.log($scope.mycomment);
+
+      $scope.dish.comments.push($scope.mycomment);
+
+      menuFactory.getDishes().update({id:$scope.dish.id}, $scope.dish);
+
+      $scope.commentForm.$setPristine();
+
+      $scope.mycomment = {
+        rating:5,
+        comment:"",
+        author:"",
+        date:""
+      };
+
+
+    };
+
+
   }])
 
-  .controller('DishCommentController', ['$scope', 'menuFactory',function($scope, menuFactory) {
+  .controller('DishCommentController', ['$scope', 'menuFactory', function($scope, menuFactory) {
 
     $scope.mycomment = {
       rating:5,
@@ -237,6 +342,70 @@ angular.module('conFusion.controllers', [])
 
   }])
 
+  .controller('FavoritesController', ['$scope', 'menuFactory', 'favoriteFactory', 'baseURL', '$ionicListDelegate', '$ionicPopup', '$ionicLoading', '$timeout', function ($scope, menuFactory, favoriteFactory, baseURL, $ionicListDelegate, $ionicPopup, $ionicLoading, $timeout) {
+
+    $scope.baseURL = baseURL;
+    $scope.shouldShowDelete = false;
+
+    $ionicLoading.show({
+      template: '<ion-spinner></ion-spinner> Loading...'
+    });
+
+    $scope.favorites = favoriteFactory.getFavorites();
+
+    $scope.dishes = menuFactory.getDishes().query(
+      function (response) {
+        $scope.dishes = response;
+        // Simulated Delay
+        $timeout(function (){
+          $ionicLoading.hide();
+        }, 1000);
+      },
+      function (response) {
+        $scope.message = "Error: " + response.status + " " + response.statusText;
+        $timeout(function (){
+          $ionicLoading.hide();
+        }, 1000);
+      });
+
+    console.log($scope.dishes, $scope.favorites);
+
+    $scope.toggleDelete = function () {
+      $scope.shouldShowDelete = !$scope.shouldShowDelete;
+      console.log($scope.shouldShowDelete);
+    };
+
+    $scope.deleteFavorite = function (index) {
+      var confirmPopup = $ionicPopup.confirm({
+        title: 'Confirm Delete',
+        template: 'Are you sure you want to delete this item?'
+      });
+
+      confirmPopup.then(function(res) {
+        if(res) {
+          console.log('Ok to delete');
+          favoriteFactory.deleteFromFavorites(index);
+        } else {
+          console.log('Canceled delete');
+        }
+      });
+      $scope.shouldShowDelete = false;
+    };
+
+  }])
+
+  .filter('favoriteFilter', function () {
+    return function (dishes, favorites) {
+      var out = [];
+      for (var i = 0; i < favorites.length; i++) {
+        for (var j = 0; j < dishes.length; j++) {
+          if (dishes[j].id === favorites[i].id)
+            out.push(dishes[j]);
+        }
+      }
+      return out;
+    }
+  })
 
 ;
 

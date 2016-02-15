@@ -1,0 +1,2 @@
+C:\Users\josh\AppData\Local\Android\sdk\platform-tools
+C:\Users\josh\AppData\Local\Android\sdk\tools

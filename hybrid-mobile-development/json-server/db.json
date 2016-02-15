@@ -62,6 +62,12 @@
           "comment": "This is a test",
           "author": "buttercup",
           "date": "2016-02-15T02:53:25.271Z"
+        },
+        {
+          "rating": "4",
+          "comment": "Hi",
+          "author": "Blow me",
+          "date": "2016-02-15T07:31:07.347Z"
         }
       ]
     },
@@ -159,7 +165,7 @@
       "image": "images/elaicheesecake.png",
       "category": "dessert",
       "label": "",
-      "price": "2.99",
+      "price": 2.99,
       "description": "A delectable, semi-sweet New York Style Cheese Cake, with Graham cracker crust and spiced with Indian cardamoms",
       "comments": [
         {
@@ -191,6 +197,12 @@
           "comment": "It's your birthday, we're gonna party!",
           "author": "25 Cent",
           "date": "2011-12-02T17:57:28.556094Z"
+        },
+        {
+          "rating": "5",
+          "comment": "Test from the phone",
+          "author": "Johns bbq",
+          "date": "2016-02-15T07:24:10.548Z"
         }
       ]
     }

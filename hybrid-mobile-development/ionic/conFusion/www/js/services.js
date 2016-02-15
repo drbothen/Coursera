@@ -2,34 +2,22 @@
 
 angular.module('conFusion.services', ['ngResource'])
         .constant("baseURL", "http://192.168.1.205:3000/")
-        .service('menuFactory', ['$resource', 'baseURL',function($resource, baseURL) {
+        .factory('menuFactory', ['$resource', 'baseURL',function($resource, baseURL) {
 
-            this.getDishes = function(){
 
                 return $resource(baseURL+"dishes/:id", null, {'update':{method:'PUT'}});
 
-            };
+}])
+.factory('promotionFactory', ['$resource', 'baseURL', function ($resource, baseURL){
 
-            this.getPromotion = function () {
-
-                return $resource(baseURL + "promotions/:id", null, {'update': {method: 'PUT'}});
-
-            };
+                return $resource(baseURL + "promotions/:id");
 
 
         }])
 
         .factory('corporateFactory', ['$resource', 'baseURL',function($resource, baseURL) {
 
-            var corpfac = {};
-
-            // Implement function,named getLeaders,
-            corpfac.getLeaders = function(){
                 return $resource(baseURL + "leadership/:id", null, {'update': {method: 'PUT'}});
-            };
-
-            // Remember this is a factory not a service
-            return corpfac;
 
         }])
 
@@ -46,10 +34,10 @@ angular.module('conFusion.services', ['ngResource'])
             return feedfac;
         }])
 
-        .factory('favoriteFactory', ['$resource', 'baseURL', function ($resource, baseURL) {
+        .factory('favoriteFactory', ['$resource', '$localStorage','baseURL', function ($resource, $localStorage, baseURL) {
 
           var favFac = {};
-          var favorites = [];
+          var favorites = $localStorage.getObject('fav', []);
 
           favFac.addToFavorites = function (index) {
             for (var i = 0; i < favorites.length; i++) {
@@ -57,21 +45,40 @@ angular.module('conFusion.services', ['ngResource'])
               return;
             }
             favorites.push({id: index});
+            $localStorage.storeObject('fav', favorites);
           };
 
           favFac.deleteFromFavorites = function (index) {
             for (var i = 0; i < favorites.length; i++) {
               if (favorites[i].id == index) {
                 favorites.splice(i, 1);
+                $localStorage.storeObject('fav', favorites);
               }
             }
           };
 
           favFac.getFavorites = function () {
-            return favorites;
+            return favorites
           };
 
           return favFac;
         }])
+  .factory('$localStorage', ['$window', function($window) {
+    return {
+      store: function(key, value) {
+        $window.localStorage[key] = value;
+      },
+      get: function(key, defaultValue) {
+        return $window.localStorage[key] || defaultValue;
+      },
+      storeObject: function(key, value) {
+        $window.localStorage[key] = JSON.stringify(value);
+      },
+      getObject: function(key, defaultValue) {
+        return JSON.parse($window.localStorage[key] || defaultValue);
+      }
+    }
+  }])
+
 
 ;

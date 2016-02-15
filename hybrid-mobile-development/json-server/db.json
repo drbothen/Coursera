@@ -56,6 +56,12 @@
           "comment": "Test 2 of IONIC",
           "author": "Jim Jones",
           "date": "2016-02-07T04:42:46.861Z"
+        },
+        {
+          "rating": "5",
+          "comment": "This is a test",
+          "author": "buttercup",
+          "date": "2016-02-15T02:53:25.271Z"
         }
       ]
     },
